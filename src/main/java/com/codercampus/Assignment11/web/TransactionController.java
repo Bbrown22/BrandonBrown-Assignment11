@@ -14,30 +14,25 @@ import com.codercampus.Assignment11.service.TransactionService;
 
 @Controller
 public class TransactionController {
-	
-	private final TransactionService transactionService;
-	
+
 	@Autowired
-	public TransactionController(TransactionService transactionService) {
-		this.transactionService = transactionService;
-	}
-	
-	@GetMapping("/transaction")
-	public String getTransactions(ModelMap model) {
-		List<Transaction> transactions = transactionService.findAll();
-		transactions.sort(Comparator.comparing(Transaction::getDate));
-		model.addAttribute("transactions",transactions);
+    private TransactionService transactionService;
+    
+    @GetMapping("/transactions")
+    public String getTransactions(ModelMap model) {
+        List<Transaction> transactions = transactionService.findAll();
+        transactions.sort(Comparator.comparing(Transaction::getDate));
+        model.put("transactions", transactions);
+        model.put("singleTransaction", new Transaction());
+        
+        return "transactions";
+    }
+    
+    @GetMapping("/transactions/{transactionId}")
+    public String getTransaction(@PathVariable Long transactionId, ModelMap model) {
+        Transaction transaction = transactionService.findById(transactionId);
+        model.put("transaction", transaction);
 
-		return "transactions";
-	}
-	 @GetMapping("/transactions/{transactionId}")
-	    public String getTransaction(@PathVariable Long transactionId, ModelMap model) {
-	        Transaction transaction = transactionService.findById(transactionId);
-	        model.addAttribute("transaction", transaction);
-	        return "transaction";
-	    }
-	
-	
-	
-
+        return "transactions";
+    }
 }
