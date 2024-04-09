@@ -7,34 +7,24 @@
     <body>
         <h2>Transaction History</h2>
 
-        <div th:unless="${singleTransaction == null}">
-            <!-- Display single transaction -->
+        <div th:if="${singleTransaction.id != null}">
             <p><strong>ID:</strong> <span th:text="${singleTransaction.id}"></span></p>
-            <p th:unless="${singleTransaction.date == null}">
-                <strong>Date:</strong> 
-                <span th:text="${#dates.format(singleTransaction.date, 'yyyy-MM-dd HH:mm:ss')}"></span>
-            </p>
-            <p><strong>Retailer:</strong> <span th:text="${singleTransaction.retailer}"></span></p>
-            <p><strong>Funds In:</strong> <span th:text="${singleTransaction.fundsIn}"></span></p>
-            <p><strong>Funds Out:</strong> <span th:text="${singleTransaction.fundsOut}"></span></p>
+            <p><strong>Date:</strong> <span th:text="${singleTransaction.date}"></span></p>
         </div>
 
-        <div th:if="${singleTransaction == null}">
-            <!-- Display multiple transactions -->
+        <div th:if="${singleTransaction.id == null}">
             <table>
                 <tr>
-                    <th>ID</th>
                     <th>Date</th>
-                    <th>Retailer</th>
-                    <th>Funds In</th>
-                    <th>Funds Out</th>
                 </tr>
                 <tr th:each="transaction : ${transactions}">
-                    <td><a th:href="@{/transactions/{id}(id=${transaction.id})}" th:text="${transaction.id}"></a></td>
-                    <td th:unless="${transaction.date == null}" th:text="${#dates.format(transaction.date, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td th:text="${transaction.id}"></td>
+                </tr>
+                <tr th:each="transaction : ${transactions}">
+                    <td th:text="${transaction.date}"></td>
+                </tr>
+                <tr th:each="transaction : ${transactions}">
                     <td th:text="${transaction.retailer}"></td>
-                    <td th:text="${transaction.fundsIn}"></td>
-                    <td th:text="${transaction.fundsOut}"></td>
                 </tr>
             </table>
         </div>
