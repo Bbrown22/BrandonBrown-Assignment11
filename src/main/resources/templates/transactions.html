@@ -1,32 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://thymeleaf.org">
-    <head>
-        <title>Online Bank</title>
-        <link rel="stylesheet" href="/css/transactions.css"/>
-    </head>
-    <body>
-        <h2>Transaction History</h2>
+<html>
 
-        <div th:if="${singleTransaction.id != null}">
-            <p><strong>ID:</strong> <span th:text="${singleTransaction.id}"></span></p>
-            <p><strong>Date:</strong> <span th:text="${singleTransaction.date}"></span></p>
-        </div>
+<head>
+	<title>Online Bank</title>
+	<link rel="stylesheet" href="/css/transactions.css" />
+</head>
 
-        <div th:if="${singleTransaction.id == null}">
-            <table>
-                <tr>
-                    <th>Date</th>
-                </tr>
-                <tr th:each="transaction : ${transactions}">
-                    <td th:text="${transaction.id}"></td>
-                </tr>
-                <tr th:each="transaction : ${transactions}">
-                    <td th:text="${transaction.date}"></td>
-                </tr>
-                <tr th:each="transaction : ${transactions}">
-                    <td th:text="${transaction.retailer}"></td>
-                </tr>
-            </table>
-        </div>
-    </body>
+<body>
+	<h2>Transaction History</h2>
+
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>Date</th>
+			<th>Retailer</th>
+			<th>Funds In</th>
+			<th>Funds Out</th>
+		</tr>
+		<tr th:each="transaction : ${transactions}">
+			<td><a th:href="@{/transactions/{id}(id=${transaction.id})}" th:text="${transaction.id}"></a></td>
+			<td th:text="${transaction.date}"></td>
+			<td th:text="${transaction.retailer}"></td>
+			<td th:if="${transaction.type == 'C'}" th:text="${transaction.amount}"></td>
+			<td th:unless="${transaction.type == 'C'}">&nbsp;</td>
+			<td th:if="${transaction.type == 'D'}" th:text="${transaction.amount}"></td>
+			<td th:unless="${transaction.type == 'D'}">&nbsp;</td>
+		</tr>
+		</td>
+		</tr>
+	</table>
+	<div th:if="${transactions == null}">
+		<p>Transaction not found.</p>
+	</div>
+</body>
+
 </html>
