@@ -55,5 +55,5 @@ public class Transaction implements Serializable {
 		return "Transaction [id=" + id + ", retailer=" + retailer + ", description=" + description + ", date=" + date
 				+ ", amount=" + amount + ", type=" + type + "]";
 	}
-	
+
 }

@@ -11,14 +11,14 @@ import com.codercampus.Assignment11.repository.TransactionRepository;
 @Service
 public class TransactionService {
 
-	    @Autowired
-	    private TransactionRepository transactionRepository;
-	    
-	    public List<Transaction> findAll() {
-	        return transactionRepository.findAll();
-	    }
-	    
-	    public Transaction findById(Long id) {
-	        return transactionRepository.findById(id);
-	    }
+	@Autowired
+	private TransactionRepository transactionRepository;
+
+	public List<Transaction> findAll() {
+		return transactionRepository.findAll();
+	}
+
+	public Transaction findById(Long id) {
+		return transactionRepository.findById(id);
+	}
 }
