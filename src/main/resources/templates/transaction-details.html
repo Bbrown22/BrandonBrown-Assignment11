@@ -17,7 +17,7 @@
 		Transaction ID:</h2>
 
 	<p th:text="'Date: ' + ${transaction.date}"></p>
-	<p th:text="'Amount: ' + ${transaction.amount}"></p>
+	  <p th:text="'Amount: ' + (${transaction.type} == 'C' ? -${transaction.amount} : ${transaction.amount})"></p>
 	<p th:text="'Description: ' + ${transaction.description}"></p>
 
 	<button onclick="goBack()">Back</button>
